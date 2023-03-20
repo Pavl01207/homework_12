@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Task 5</title>
+</head>
+
+<body>
+	<script>
+		//Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук визначити, чи є у масиві ім’я довжиною 5 символів і під яким індексом.
+		const arrayWithNames = ['Pavlo', 'Kostya', 'Oleksandr', 'Olga', 'Katerina', 'Yura', 'Tetyana', 'Evheniy', 'Nika','Raya']
+		document.write(`<p>Масив до сортування: <span>${arrayWithNames}</span>.</p>`)
+		//сортування масиву за довжиною імені використовуючи включення
+		function insertSort(arr){
+			for(let k = 1; k < arr.length; k++){
+				const currentElement = arr[k]
+				let i = k - 1
+				while(i >= 0 && arr[i].length > currentElement.length){
+					arr[i + 1] = arr[i]
+					i = i - 1
+				}
+				arr[i + 1] = currentElement
+			}
+			return arr
+		}
+		const sortArrayWithNames = insertSort(arrayWithNames)
+		document.write(`<p>Масив після сортування за довжиною імені: <span>${sortArrayWithNames}</span>.</p>`)
+		//бінарний пошук імені довжиною 5 символів і під яким індексом
+		function findIndex_binarySearch(arr, searchElement) {
+			let start = 0
+			let end = arr.length - 1
+			while(start<=end){
+				const middle = Math.floor((start+end)/2)
+				if(arr[middle] === searchElement) return middle
+				if(arr[middle] < searchElement) start = middle + 1
+				if(arr[middle] > searchElement) end = middle - 1
+			}
+			return -1
+		}
+		const searchIndex = findIndex_binarySearch(sortArrayWithNames, 'Pavlo')
+		if(searchIndex !== -1) document.write(`<p><span>Pavlo</span> присутній у масиві та знаходиться під індексом <span>${searchIndex}</span>.</p>`)
+		else document.write(`<p>Даний масив <span>не містить</span> ім'я <span>Pavlo</span>.</p>`)
+	</script>
+</body>
+</html>
